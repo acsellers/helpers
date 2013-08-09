@@ -12,6 +12,6 @@ func OptionizeWithDefaults(options []string) map[string]string {
 
 }
 
-func StrictOptionizeWithDefaults(options []string) map[string]string {
+func StrictOptionizeWithDefaults(options []string) ([]string, map[string]string) {
 
 }
