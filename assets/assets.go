@@ -64,13 +64,13 @@ func AudioPath(filename string) string {
 }
 
 func AudioTag(filename string, options ...string) template.HTML {
-	optionsMap := utils.optionize(options)
+	optionsMap := utils.Optionize(options)
 	optionsMap["src"] = AudioPath(filename)
-	return utils.tag("audio", optionsMap)
+	return utils.Tag("audio", optionsMap)
 }
 
 func FaviconLinkTag(name string, options ...string) template.HTML {
-	optionsMap := utils.optionize(options)
+	optionsMap := utils.Optionize(options)
 	optionsMap["href"] = name
 	switch path.Ext(name) {
 	case "ico":
@@ -94,7 +94,7 @@ func FaviconLinkTag(name string, options ...string) template.HTML {
 		optionsMap["rel"] = "shortcut icon"
 	}
 
-	return utils.tag("link", optionsMap)
+	return utils.Tag("link", optionsMap)
 }
 
 func FontPath(name string) string {
@@ -106,9 +106,9 @@ func ImagePath(name string) string {
 }
 
 func ImageTag(name string, options ...string) template.HTML {
-	optionsMap := utils.optionize(options)
+	optionsMap := utils.Optionize(options)
 	optionsMap["src"] = ImagePath(name)
-	return utils.tag("img", optionsMap)
+	return utils.Tag("img", optionsMap)
 }
 
 func JavascriptPath(name string) string {
@@ -116,10 +116,10 @@ func JavascriptPath(name string) string {
 }
 
 func JavascriptSrcTag(name string, options ...string) template.HTML {
-	optionsMap := utils.optionizeWithDefaults(options, defaultMaps["javascript"])
+	optionsMap := utils.OptionizeWithDefaults(options, defaultMaps["javascript"])
 	optionsMap["src"] = JavascriptPath(name)
 
-	return utils.tag("script", optionsMap)
+	return utils.Tag("script", optionsMap)
 }
 
 func JavascriptIncludeTag(names ...string) template.HTML {
@@ -131,7 +131,7 @@ func JavascriptIncludeTag(names ...string) template.HTML {
 
 	for i, name := range names {
 		options["src"] = JavascriptPath(names)
-		tags[i] = string(utils.tag("script", options))
+		tags[i] = string(utils.Tag("script", options))
 	}
 
 	return template.HTML(strings.Join(tags))
@@ -142,12 +142,12 @@ func StylesheetPath(name string) string {
 }
 
 func StylesheetLinkTag(items ...string) template.HTML {
-	sheets, optionsMap := utils.strictOptionizeWithDefaults(more, defaultMaps["css"])
+	sheets, optionsMap := utils.StrictOptionizeWithDefaults(more, defaultMaps["css"])
 	tags := make([]string, len(sheets))
 
 	for i, sheet := range sheets {
 		optionsMap["href"] = StylesheetPath(sheet)
-		tags[i] = string(utils.tag("link", optionsMap))
+		tags[i] = string(utils.Tag("link", optionsMap))
 	}
 
 	return template.HTML(strings.Join(tags))
